@@ -20,11 +20,11 @@ public class WGraph_DS implements weighted_graph , Serializable{
 
             HashMap<Integer,node_info> nodes=new HashMap<Integer,node_info>();
             NodeInfo temp;
-            for(node_info n:g.getV()){
+            for(node_info n:g.getV()){//copy all the nodes from graph g to this graph
                 temp=((NodeInfo)n).copy();
                 nodes.put(temp.getKey(),temp);
             }
-            for(node_info n:g.getV())
+            for(node_info n:g.getV())//connect between the nodes in this graph
             {
                 NodeInfo nodeInThisGraph =(NodeInfo)nodes.get(n.getKey());
                 for(node_info ni:((NodeInfo)n).getNi())
@@ -48,6 +48,8 @@ public class WGraph_DS implements weighted_graph , Serializable{
 
     @Override
     public boolean hasEdge(int node1, int node2) {
+        if(!nodes.containsKey(node1)||!nodes.containsKey(node2))
+            return false;
         if(((NodeInfo)this.nodes.get(node1)).getNi().contains(nodes.get(node2)))
             return true;
         if(node1==node2)
@@ -70,22 +72,16 @@ public class WGraph_DS implements weighted_graph , Serializable{
         {
             NodeInfo n=new NodeInfo(key,"",0);
             nodes.put(n.getKey(),n);
+            MC++;
         }
-        MC++;
     }
-    public void addNode(int key,String info,double tag) {
-        if(!this.nodes.containsKey(key))
-        {
-            NodeInfo n=new NodeInfo(key,info,tag);
-            nodes.put(n.getKey(),n);
-        }
-        MC++;
-    }
+
 
     @Override
     public void connect(int node1, int node2, double w) {
         if(nodes.get(node1)!=null &&nodes.get(node2)!=null&& node1!=node2 && w>=0) {
-            if(!((NodeInfo) nodes.get(node1)).getNi().contains(nodes.get(node2))) {
+            if(!((NodeInfo) nodes.get(node1)).getNi().contains(nodes.get(node2)))//check if node1 and node2 are already neighbors
+            {
                 numOfEdges++;
             }
             ((NodeInfo) nodes.get(node1)).addNi((NodeInfo) nodes.get(node2), w);
@@ -111,14 +107,14 @@ public class WGraph_DS implements weighted_graph , Serializable{
             NodeInfo n=(NodeInfo)nodes.get(key);
             node_info temp;
             Iterator<node_info> it=n.getNi().iterator();
-            while(it.hasNext())
+            while(it.hasNext())//remove all the edges of the node with this key
             {
                 temp=it.next();
                 it.remove();
                 n.removeNode(temp);
                 numOfEdges--;
             }
-            nodes.remove(key);
+            nodes.remove(key);//remove this node from the graph
             MC++;
             return n;
         }

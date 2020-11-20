@@ -130,6 +130,12 @@ public class WGraph_Algo implements weighted_graph_algorithms {
             }
             return path;
         }
+        else if(visited.contains(g.getNode(dest)))
+        {
+            ArrayList<node_info> Path=new ArrayList<node_info>();//path from dest to src
+            Path.add(g.getNode(dest));
+            return Path;
+        }
         return null;
     }
 
