@@ -1,6 +1,9 @@
 # Ex1-oop- weighted graph
 
+
 ### WGraph_DS-
+This class implements the "weighted_graph" Interface.
+functions that the class is implements:
 1. getNode(int key)- return the node with this key.
 2. hasEdge(int node1, int node2)- return true if there is an edge between node1 & node2, else return false.
 3. getEdge(int node1, int node2)- if there is an edge between those two nodes than it returns the weight of the edge, else return -1.
@@ -15,6 +18,8 @@
 12. getMC()-return the number of operations that we did on the graph.
 
 ### WGraph_Algo-
+This class implements the "weighted_graph_algorithms" Interface.
+functions that the class is implements:
 1. init(weighted_graph g)- put g in this.g.
 2. getGraph()- return this g.
 3. copy()- return a copy of this g.
